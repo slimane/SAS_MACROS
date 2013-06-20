@@ -1,3 +1,16 @@
+/* 変数の方をチェック */
+/* NOTE : vtypeは戻り値が分かりづらいため */
+%macro is_char(data);
+	vtype(&data.)  = "C"
+%mend;
+
+%macro is_num(data);
+	vtype(&data.) = "N"
+%mend;
+
+
+
+
 /* */
 /* missing data */
 /* like to nvl_function(character ver.) */
@@ -13,6 +26,8 @@
 		, &data1.
 		, &data2.)
 %mend;
+
+
 
 
 
