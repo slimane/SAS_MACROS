@@ -1,13 +1,14 @@
+/* */
 /* missing data */
-/* like to NVL_FUNCTION(Character ver.) */
-%macro NVL_C(data1, data2);
+/* like to nvl_function(character ver.) */
+%macro nvl_c(data1, data2);
 	ifc(not missing(&data1.)
 		, &data1.
 		, &data2.)
 %mend;
 
-/* like to NVL_FUNCTION(Numeric ver.) */
-%macro NVL_N(data1, data2);
+/* like to nvl_function(numeric ver.) */
+%macro nvl_n(data1, data2);
 	ifn(not missing(&data1.)
 		, &data1.
 		, &data2.)
@@ -16,18 +17,24 @@
 
 
 
+/* 0埋め */
+%macro fill_zero(invar, format);
+	put(input(&invar., best12.), &format.)
+%mend;
 
 
 
 
-%macro getGreater_N(val1, val2);
+/* 与えられた2つの値のうち大きい方を返す*/
+%macro get_greater_n(val1, val2);
 	ifn(&val1. > &val2.
 		, &val1.
 		, &val2.
 	)
 %mend;
 
-%macro getLesser_N(val1, val2);
+/* 与えられた値のうち小さい方を返す */
+%macro get_lesser_n(val1, val2);
 	ifn(&val1. < &val2.
 		, &val1.
 		, &val2.
@@ -36,8 +43,8 @@
 
 
 
-%macro likeDictionary(ds, key, val);
-	%createDictionary(&ds.);
+%macro like_dictionary(ds, key, val);
+	%create_dictionary(&ds.);
 
 	proc sql;
 		INSERT INTO &ds.
@@ -50,7 +57,7 @@
 
 
 
-%macro createDictionary(ds);
+%macro create_dictionary(ds);
 	%if not %sysfunc(exist(&ds.)) %then %do;
 		proc sql;
 			CREATE TABLE &ds.
@@ -64,3 +71,36 @@
 	%end;
 %mend;
 
+
+
+
+/* 期間計算 */
+/* NOTE : 日付けが数値型の場合 */
+%macro get_term_n(start, end);
+	ifn(&start. <= &end.
+		, &end. &start. + 1
+		, &end. - &start.
+	)
+%mend;
+
+/* NOTE : 日付けが文字型の場合 */
+%macro get_term_c(start, end, format);
+	%get_greater_n(input(&start., &format.), input(&end., &format.))
+%mend;
+
+
+
+
+/* 与えられた値が適切な日付け形式か否か*/
+/* NOTE: 31日がある月や2月の対応などが必要だが、
+        複雑な正規表現にすると処理速度の問題があるため最低現のチェックのみ */
+%macro test();
+	^\d{4}[/-](0?[1-9]|1[0-2])[/-](0?[1-9]|[12][0-9]|3[01])$
+%mend;
+
+
+
+/* 与えられた値が適切な時刻形式か否か*/
+%macro test();
+	^(0?[0-9]|1[0-9]|2[0-4]):(0{1,2}|[1-5][0-9]|60)$
+%mend;
