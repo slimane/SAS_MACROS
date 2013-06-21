@@ -27,6 +27,12 @@
 		, &data2.)
 %mend;
 
+/* like to nvl_function(numeric ver.) */
+%macro nvl_n_c(data1, data2);
+	ifn(not missing(&data1.)
+		, &data1.
+		, &data2.);
+%mend;
 
 
 
