@@ -125,3 +125,17 @@
 %macro test();
 	^(0?[0-9]|1[0-9]|2[0-4]):(0{1,2}|[1-5][0-9]|60)$
 %mend;
+
+
+
+
+/* 正規表現でのsubmatch取得を簡単にする*/
+proc fcmp outlib = work.functions.reg;
+	function get_submatch(reg_pat $, number, target_word $) $;
+		pxid   = prxparse(reg_pat);
+		pxmatch_result = prxmatch(pxid, target_word);
+		result = prxposn(pxid, number, target_word) ;
+		return(result);
+	endsub;
+run;
+options cmplib = work.functions;
