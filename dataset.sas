@@ -1,9 +1,9 @@
 /* obserbationの数をカウント */
 %macro obscnt(ds, output_var);
-    %global &ouputVar;
+    %global &ouput_var;
     data _null_;
         set &ds. nobs = cnt;
-        call symput("&ouputVar", left(put(cnt, 8.)));
+        call symput("&ouput_var", left(put(cnt, 8.)));
         stop;
     run;
 %mend;
@@ -22,5 +22,29 @@
         set _tmpxx_ nobs = cnt;
         call symput("&output_var", left(put(cnt, 8.)));
         stop;
+    run;
+%mend;
+
+
+
+
+%macro generate_seq(in_ds, out_ds, num_column, key, min);
+    data &out_ds.;
+        set
+            &in_ds.;
+        by
+            &key.;
+
+        retain
+            no;
+
+        if first.&key. then
+            no = &min.;
+        else
+            no + 1;
+
+        &num_column. = no;
+
+        drop no;
     run;
 %mend;

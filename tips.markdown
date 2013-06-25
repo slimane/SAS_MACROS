@@ -26,4 +26,7 @@
 			OPTIONS MPRINT SYMBOLGEN;
 	MLOGIC
 
-
+## 正規表現での値の整合性チェック
+		-> prxmatch("/pat/", 比較対象);
+			usage
+				pxmatch("/(^|\s)" || variable || "(\s|$)/");
