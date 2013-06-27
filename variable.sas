@@ -128,14 +128,26 @@
 
 
 
+/* 数値として解釈できるか否かを判定 */
+/* 使用例 : if %is_number(number_str) then do; */
+%macro is_numeric(numeric);
+	prxmatch('m/^(\+|-)?(\d+|\d+\.\d+|\d\.\d+E\d+)$/', &numeric.)
+%mend;
+
+
+
 
 /* 正規表現でのsubmatch取得を簡単にする*/
 proc fcmp outlib = work.functions.reg;
 	function get_submatch(reg_pat $, number, target_word $) $;
 		pxid   = prxparse(reg_pat);
-		pxmatch_result = prxmatch(pxid, target_word);
+		_temp  = prxmatch(pxid, target_word);
 		result = prxposn(pxid, number, target_word) ;
 		return(result);
 	endsub;
 run;
+
+
+
+
 options cmplib = work.functions;
