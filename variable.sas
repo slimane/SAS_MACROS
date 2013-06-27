@@ -134,6 +134,14 @@
 	prxmatch('m/^(\+|-)?(\d+|\d+\.\d+|\d\.\d+E\d+)$/', &numeric.)
 %mend;
 
+/* 数値として解釈できる文字列を数値型に変換、変換不可能なら欠損地を返す */
+/* 使用例 numeric_column = %cast_number(numeric_column); */
+%macro cast_numeric(numeric_str);
+	ifn(%is_numeric(&number_str.)
+		, input(&numeric_str., best12.))
+		, .)
+%mend;
+
 
 
 
