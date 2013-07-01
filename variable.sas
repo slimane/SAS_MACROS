@@ -145,17 +145,4 @@
 
 
 
-/* 正規表現でのsubmatch取得を簡単にする*/
-proc fcmp outlib = work.functions.reg;
-	function get_submatch(reg_pat $, number, target_word $) $;
-		pxid   = prxparse(reg_pat);
-		_temp  = prxmatch(pxid, target_word);
-		result = prxposn(pxid, number, target_word) ;
-		return(result);
-	endsub;
-run;
-
-
-
-
 options cmplib = work.functions;
