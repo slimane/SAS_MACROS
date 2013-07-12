@@ -3,7 +3,7 @@
         array_name  : temporary配列名称
         length      : 配列長
         vars        : 変数(スペース区切りで複数定義)
-    usage   :
+    example   :
         %insert_temporary_to_vars(japanese, 2, word1 word2);
         -> temporary配列であるjapaneseにword1とword2が格納された状態になる
 */
@@ -18,5 +18,6 @@
     do &counter. = 1 to dim(&_temporary_array_name.);
         &array_name.[&counter.] = &_temporary_array_name.[&counter.];
     end;
+
     drop &counter.;
 %mend;
