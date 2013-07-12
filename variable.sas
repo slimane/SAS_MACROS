@@ -145,4 +145,29 @@
 
 
 
+/*	summary : prxchangeを簡単に
+	args	:
+		text	: 変換対象テキスト
+		pattern : 置換パターン('/pattern/replace/options'形式で入力)
+		flg		: 右記のように判断(g = 全て、null = 1回, integer = 数値分の回数)
+	example	:
+		text = 'a_a_a_a_a_a_a'
+		%substitute(text1, '/a/d/i')	 -> d_a_a_a_a_a_a
+		%substitute(text1, '/a/d/i', g)  -> d_d_d_d_d_d_d
+		%substitute(text1, '/a/d/i', 3)  -> d_d_d_a_a_a_a
+		%substitute(text1, '/\w/b/i', 3) -> bbb_d_a_a_a_a
+*/
+%macro substitute(text, pattern, flg);
+
+	%if &flg. = g %then %do;
+		prxchange('s' || &pattern., -1, &text.)
+	%end;
+	%else %do;
+		prxchange('s' || &pattern., input(prxchange('s/^.*\D.*$/1/', 1, "&flg."), best12.), &text.)
+	%end;
+%mend;
+
+
+
+
 options cmplib = work.functions;
