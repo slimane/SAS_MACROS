@@ -28,23 +28,37 @@
 
 
 
-%macro generate_seq(in_ds, out_ds, num_column, key, min);
+%macro generate_seq(in_ds, out_ds, num_column, min, grouping_key);
     data &out_ds.;
         set
             &in_ds.;
         by
-            &key.;
+            &grouping_key.;
 
         retain
-            no;
+            temp_number_variable;
 
-        if first.&key. then
-            no = &min.;
+        if first.&grouping_key. then
+            temp_number_variable = &min.;
         else
-            no + 1;
+            temp_number_variable + 1;
 
-        &num_column. = no;
+        &num_column. = temp_number_variable;
 
-        drop no;
+        drop temp_number_variable;
+    run;
+%mend;
+
+
+
+%macro o_sort(in_ds, out_ds, key_item, options);
+    proc sort
+        data = &in_ds.
+        out  = &out_ds.
+        &options.;
+
+        by
+            &key_item.
+            ;
     run;
 %mend;
