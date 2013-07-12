@@ -1,11 +1,11 @@
 ## null判定
-	-> MISSING()
+	missing()
 
 ## Datasetの存在判定
-	-> EXISTS()
+	exists()
 
 ## escapeシーケンス
-	-> %str()
+	%str()
 		example : %let example = %str(data test; set test; run);
 
 ## macroのdebug
@@ -27,6 +27,37 @@
 	MLOGIC
 
 ## 正規表現での値の整合性チェック
-		-> prxmatch("/pat/", 比較対象);
+		prxmatch("/pat/", 比較対象);
 			usage
 				pxmatch("/(^|\s)" || variable || "(\s|$)/");
+
+## Debug
+		put
+			usage
+				'variables ' variable1= variable2= variable3;
+
+## データのフィルタリング
+
+
+
+
+## 外部ファイルのimport
+
+	+ libname
+
+	+ infile <file_path> <options>;
+		inputで変数名などを指定
+		informat で読み込みデータのフォーマットを指定
+
+
+## retainステートメント
+	変数値の初期を行わないで次のステートメントに引き継ぐ
+
+
+## format/informatステートメント
+	format   : データ出力時のフォーマット指定
+	informat : データ取り込み時のフォーマットを指定
+
+
+## returnステートメント
+	currentオブザベーションの処理を中止し、次のオブザベーションの処理に移動する(currentオブザベーションは破棄されない)
