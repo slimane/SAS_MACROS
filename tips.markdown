@@ -1,3 +1,12 @@
+## fcmpプロシージャーにおける真偽判定
+	return(conditional expression);
+		result
+			1 : true
+			0 : false
+
+
+
+
 ## null判定
 	missing()
 
@@ -27,9 +36,9 @@
 	MLOGIC
 
 ## 正規表現での値の整合性チェック
-		prxmatch("/pat/", 比較対象);
+		prxmatch("m/pat/", 比較対象);
 			usage
-				pxmatch("/(^|\s)" || variable || "(\s|$)/");
+				pxmatch("m/(^|\s)" || variable || "(\s|$)/");
 
 ## Debug
 		put
@@ -37,6 +46,7 @@
 				'variables ' variable1= variable2= variable3;
 
 ## データのフィルタリング
+	where statement
 
 
 
