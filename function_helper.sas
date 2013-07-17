@@ -1,3 +1,8 @@
+%let func_lib = work.functions;
+options cmplib = &func_lib.;
+
+
+
 /*  summary : スペース区切りの引数の個数を計算する
     args    :
         vars    : スペース区切りの複数の変数
@@ -12,8 +17,9 @@
         別macro使用時に与えられた変数の個数を知りたい時
     note    :
         当該macorは単なる関数へのwrapperのため、使用時には関数使用時と同様に値が戻される
+        macro自体にfunctionの記載を書いても実用上問題がない
 */
-proc fcmp outlib = work.functions.variable;
+proc fcmp outlib = &func_lib..variable;
     function count_vars(txt $);
         return(lengthn(compress(prxchange('s/\S+/1/', -1, txt))));
     endsub;
