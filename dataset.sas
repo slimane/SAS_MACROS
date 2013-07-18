@@ -1,5 +1,5 @@
 /* obserbationの数をカウント */
-%macro obscnt(ds, output_var);
+%macro obs_cnt(ds, output_var);
     %global &ouput_var;
     data _null_;
         set &ds. nobs = cnt;
@@ -12,7 +12,7 @@
 
 
 /* 変数の数(列数)をカウント */
-%macro varcnt(ds, output_var);
+%macro var_count(ds, output_var);
     %global &output_var;
     proc contents
         data = &ds.
@@ -55,7 +55,8 @@
     proc sort
         data = &in_ds.
         out  = &out_ds.
-        &options.;
+        &options.
+        ;
 
         by
             &key_item.
