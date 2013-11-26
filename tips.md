@@ -6,6 +6,9 @@
 
 
 
+## %if条件で文字列判定を行う
+	%if "&variable" = "Strings"
+		マクロ変数をクオーテーショで囲むことにより判定できる
 
 ## null判定
 	missing()
@@ -71,3 +74,19 @@
 
 ## returnステートメント
 	currentオブザベーションの処理を中止し、次のオブザベーションの処理に移動する(currentオブザベーションは破棄されない)
+
+
+
+# warningの抑制
+
+1. WARNING: セルの 50% (表 : XXX) において、期待度数が 5 より小さくなっています。カイ 2 乗検定は妥当な検定でないと思われます。
+	SAS 9.2 TS2M3 (SAS/STAT 9.22)以降では、TABLESステートメントにて、CHISQ(WARN=NONE)と記述
+
+
+## dataステップ内sort
+
+	data example;
+		set pre_example;
+
+		proc sort; by {key};
+	run;
