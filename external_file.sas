@@ -20,7 +20,7 @@
 /* 使用例 */
 /*  %excel_to_sas(&ABC., EXCEL_FILE,10000, COLUMN_A, DS_NAME); */
 %macro excel_to_sas(filepath, libname, sheet, max_columns, key_item,  out_ds,);
-    %create_excel_lib(&filepath., &libname.)
+    %excel_lib(&filepath., &libname.)
     data &out_ds.;
         set &libname.."&sheet.$"n(
                         obs       = &max_columns.
