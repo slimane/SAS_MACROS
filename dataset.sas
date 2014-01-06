@@ -3,11 +3,11 @@
         ds          : observationの数を数えたデータセット
         output_var  : 結果を格納するマクロ変数の名称
 */
-%macro obs_cnt(ds, output_var);
+%macro obs_count(ds, output_var);
     %global &ouput_var;
     data _null_;
         set &ds. nobs = cnt;
-        call symput("&ouput_var", left(put(cnt, 8.)));
+        call symput("&output_var", left(put(cnt, 8.)));
         stop;
     run;
 %mend;
