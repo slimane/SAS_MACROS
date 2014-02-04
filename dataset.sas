@@ -4,7 +4,7 @@
         output_var  : 結果を格納するマクロ変数の名称
 */
 %macro obs_count(ds, output_var);
-    %global &ouput_var;
+    %global &output_var;
     data _null_;
         set &ds. nobs = cnt;
         call symput("&output_var", left(put(cnt, 8.)));

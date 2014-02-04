@@ -1,0 +1,8 @@
+
+%macro (func_name, function_body)
+    %if not %sysexist("&func_name._is_exist") %then %do;
+        &function_body;
+        %gloabl &func_name._is_exist;
+        %let &func_name._is_exist = 1;
+    %end;
+%mend;
